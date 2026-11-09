@@ -49,3 +49,4 @@ def add_page_number_to_run(run):
     run._r.append(fldChar3)
 
 print("Helper functions defined.")
+
