@@ -172,18 +172,14 @@ def add_frontmatter(doc):
     r_cb.font.size = Pt(12)
 
     # Signature Table (Border-less grid)
-    sig_table = doc.add_table(rows=2, cols=2)
+    sig_table = doc.add_table(rows=1, cols=2)
     sig_table.alignment = WD_TABLE_ALIGNMENT.CENTER
     sig_table.autofit = False
 
     sig_data = [
         [
-            ("Ms. Mohini Fulzele\n(Project Guide)\nAssistant Professor", WD_ALIGN_PARAGRAPH.LEFT),
-            ("Dr. Vineet Mehan\n(Head of Department)\nDepartment of Computer Applications", WD_ALIGN_PARAGRAPH.RIGHT)
-        ],
-        [
-            ("Dr. N. P. Bhosale\n(Project Coordinator)\nAssociate Professor", WD_ALIGN_PARAGRAPH.LEFT),
-            ("Dr. Ashutosh Tripathi\n(Director / Principal)\nMarik Institute of Computing", WD_ALIGN_PARAGRAPH.RIGHT)
+            ("Date: 10/11/2026\nPlace: Jaipur", WD_ALIGN_PARAGRAPH.LEFT),
+            ("Ms. Mohini Fulzele\n(Project Guide & Faculty Mentor)\nAssistant Professor\nDepartment of Computer Applications\nMarik Institute of Computing\nNIMS University Rajasthan, Jaipur", WD_ALIGN_PARAGRAPH.RIGHT)
         ]
     ]
 
@@ -191,7 +187,7 @@ def add_frontmatter(doc):
         for c_idx, (text, align) in enumerate(row):
             cell = sig_table.cell(r_idx, c_idx)
             cell.width = Inches(2.9)
-            set_cell_margins(cell, top=160, bottom=160, left=60, right=60)
+            set_cell_margins(cell, top=200, bottom=160, left=60, right=60)
             p = cell.paragraphs[0]
             p.alignment = align
             p.paragraph_format.line_spacing = 1.3
@@ -215,10 +211,10 @@ def add_frontmatter(doc):
     r_at.font.size = Pt(14)
 
     ack_paras = [
-        "We take this opportunity to thanks the teacher and senior authorities whose constant encouragement made it possible for us to take up a challenge of doing this project.",
-        "We are grateful to Prof. Ms. Mohini Fulzele for her technical support, valuable guidance, encouragement and consistent help without which it would have been difficult for us to complete this project work. She is constant source of inspiration and information to us.",
-        "We extend our sincere thanks to project coordinator Dr. N. P. Bhosale for his guidance and timely help. We express our deepest sense of gratitude towards our Head of department Dr. Vineet Mehan for giving permission to use the college resources and his constant encouragement for this work.",
-        "We owe sincere thanks towards our Director Dr. Ashutosh Tripathi for his encouragement and guidance throughout the BCA course. Last but not the least we are thankful to our entire staff of Computer Applications Department for their timely help and guidance at various Stages of the project work."
+        "I take this opportunity to express my profound gratitude to the faculty and authorities of NIMS University Rajasthan, Jaipur, whose constant encouragement made it possible to undertake and successfully complete this project on Real-Time ATM Card Fraud Detection & Behavioral Risk Analysis System (CardShield).",
+        "I express my deepest gratitude and sincere thanks to my project guide and faculty mentor, Prof. Ms. Mohini Fulzele (Assistant Professor), for her invaluable technical support, constructive guidance, encouragement, and consistent help throughout the design, development, and evaluation stages of this project. She has been a constant source of inspiration and guidance to me.",
+        "I am also deeply grateful to the Department of Computer Applications and the Cognitive Science – Project Based Learning Lab at Marik Institute of Computing, Artificial Intelligence, Robotics & Cybernetics for providing the computational facilities, laboratory resources, and academic environment necessary to execute this work.",
+        "Finally, I express my sincere thanks to my family, friends, and peers who provided encouragement, feedback, and support throughout the duration of the BCA course and the completion of this project report."
     ]
 
     for txt in ack_paras:
