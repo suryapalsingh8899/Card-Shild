@@ -77,13 +77,6 @@ def build_document():
     except PermissionError:
         print(f"NOTE: '{output_path}' is currently open in Microsoft Word.")
 
-    # Also save Document_Final.docx if not locked
-    try:
-        doc.save("Document_Final.docx")
-        print("Saved Document_Final.docx successfully.")
-    except PermissionError:
-        print("NOTE: 'Document_Final.docx' is currently open in Microsoft Word.")
-
     # Word Count & Analysis
     doc_saved = doc
     total_words = sum(len(p.text.split()) for p in doc_saved.paragraphs)
