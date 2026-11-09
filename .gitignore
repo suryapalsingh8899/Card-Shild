@@ -8,8 +8,9 @@ env/
 
 # Large Datasets (>100MB exceeds GitHub push limits)
 Bank Transaction dataset/
-cardshield/node_modules/
-cardshield/dist/
+
+# Working copies and temp files
+Document_Final.docx
 
 # OS files
 .DS_Store

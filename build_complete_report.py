@@ -69,20 +69,23 @@ def build_document():
     print("Adding Chapters 4 to 6, References, and Appendices...")
     add_chapters_4_to_6(doc)
 
-    # Always save Document_Final.docx as well
-    doc.save("Document_Final.docx")
-    print("Saved Document_Final.docx successfully.")
-
-    # Attempt to save Document.docx
+    # Save Document.docx
     output_path = "Document.docx"
     try:
         doc.save(output_path)
         print(f"Document saved successfully as '{output_path}'.")
     except PermissionError:
-        print(f"NOTE: '{output_path}' is currently open in Microsoft Word. Saved to 'Document_Final.docx'.")
+        print(f"NOTE: '{output_path}' is currently open in Microsoft Word.")
+
+    # Also save Document_Final.docx if not locked
+    try:
+        doc.save("Document_Final.docx")
+        print("Saved Document_Final.docx successfully.")
+    except PermissionError:
+        print("NOTE: 'Document_Final.docx' is currently open in Microsoft Word.")
 
     # Word Count & Analysis
-    doc_saved = Document("Document_Final.docx")
+    doc_saved = doc
     total_words = sum(len(p.text.split()) for p in doc_saved.paragraphs)
     for t in doc_saved.tables:
         for row in t.rows:
