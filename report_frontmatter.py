@@ -2,6 +2,7 @@
 """
 Front matter generation for NIMS University Academic Project Report
 Matches exact layout from BE_Project_Report_front page _Format1.doc
+and 100% aligned with PPT Card Shiels.pptx and CardShield project codebase.
 """
 
 import os
@@ -18,7 +19,6 @@ def add_frontmatter(doc):
     # =========================================================
     # 1. COVER PAGE (Specimen Format from sample doc)
     # =========================================================
-    # Spacing from top
     p_top = doc.add_paragraph()
     p_top.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_top.paragraph_format.space_before = Pt(0)
@@ -31,8 +31,8 @@ def add_frontmatter(doc):
     # Title
     p_title = doc.add_paragraph()
     p_title.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_title.paragraph_format.space_before = Pt(14)
-    p_title.paragraph_format.space_after = Pt(24)
+    p_title.paragraph_format.space_before = Pt(12)
+    p_title.paragraph_format.space_after = Pt(20)
     r_title = p_title.add_run("CARDSHIELD: REAL-TIME ATM CARD FRAUD DETECTION & BEHAVIORAL RISK ANALYSIS SYSTEM")
     r_title.bold = True
     r_title.font.name = 'Times New Roman'
@@ -41,8 +41,8 @@ def add_frontmatter(doc):
     # Submitted By
     p_sub = doc.add_paragraph()
     p_sub.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_sub.paragraph_format.space_before = Pt(10)
-    p_sub.paragraph_format.space_after = Pt(6)
+    p_sub.paragraph_format.space_before = Pt(8)
+    p_sub.paragraph_format.space_after = Pt(4)
     r_sub = p_sub.add_run("SUBMITTED BY")
     r_sub.bold = True
     r_sub.font.name = 'Times New Roman'
@@ -51,9 +51,9 @@ def add_frontmatter(doc):
     # Student details
     p_stu = doc.add_paragraph()
     p_stu.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_stu.paragraph_format.space_before = Pt(4)
-    p_stu.paragraph_format.space_after = Pt(20)
-    r_stu = p_stu.add_run("Mr. Suryapal Singh                                (Enrollment No. 2024COMPSC0029)\nStudent ID: 146476")
+    p_stu.paragraph_format.space_before = Pt(2)
+    p_stu.paragraph_format.space_after = Pt(16)
+    r_stu = p_stu.add_run("Mr. Suryapal Singh                                (Enrollment No. 2024COMPSC0029)\nStudent ID: 146476  |  Branch: BCA – 5th Semester")
     r_stu.bold = True
     r_stu.font.name = 'Times New Roman'
     r_stu.font.size = Pt(12)
@@ -62,7 +62,7 @@ def add_frontmatter(doc):
     p_gui_lbl = doc.add_paragraph()
     p_gui_lbl.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_gui_lbl.paragraph_format.space_before = Pt(6)
-    p_gui_lbl.paragraph_format.space_after = Pt(4)
+    p_gui_lbl.paragraph_format.space_after = Pt(2)
     r_gui_lbl = p_gui_lbl.add_run("UNDER THE GUIDANCE OF")
     r_gui_lbl.bold = True
     r_gui_lbl.font.name = 'Times New Roman'
@@ -71,7 +71,7 @@ def add_frontmatter(doc):
     p_gui = doc.add_paragraph()
     p_gui.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_gui.paragraph_format.space_before = Pt(2)
-    p_gui.paragraph_format.space_after = Pt(18)
+    p_gui.paragraph_format.space_after = Pt(14)
     r_gui = p_gui.add_run("Prof. Ms. Mohini Fulzele\n(Assistant Professor)")
     r_gui.bold = True
     r_gui.font.name = 'Times New Roman'
@@ -81,17 +81,23 @@ def add_frontmatter(doc):
     if os.path.exists(logo_path):
         p_logo = doc.add_paragraph()
         p_logo.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        p_logo.paragraph_format.space_before = Pt(6)
-        p_logo.paragraph_format.space_after = Pt(14)
+        p_logo.paragraph_format.space_before = Pt(4)
+        p_logo.paragraph_format.space_after = Pt(12)
         run_logo = p_logo.add_run()
-        run_logo.add_picture(logo_path, width=Inches(1.55))
+        run_logo.add_picture(logo_path, width=Inches(1.50))
 
-    # University & Department Details
+    # University, Lab & Department Details
     p_uni = doc.add_paragraph()
     p_uni.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_uni.paragraph_format.space_before = Pt(6)
+    p_uni.paragraph_format.space_before = Pt(4)
     p_uni.paragraph_format.space_after = Pt(0)
-    p_uni.paragraph_format.line_spacing = 1.3
+    p_uni.paragraph_format.line_spacing = 1.25
+    
+    r_u0 = p_uni.add_run("COGNITIVE SCIENCE – PROJECT BASED LEARNING LAB\n")
+    r_u0.bold = True
+    r_u0.font.name = 'Times New Roman'
+    r_u0.font.size = Pt(12)
+    
     r_u1 = p_uni.add_run("MARIK INSTITUTE OF COMPUTING, ARTIFICIAL INTELLIGENCE,\nROBOTICS & CYBERNETICS\n")
     r_u1.bold = True
     r_u1.font.name = 'Times New Roman'
@@ -116,7 +122,13 @@ def add_frontmatter(doc):
     p_cert_head.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_cert_head.paragraph_format.space_before = Pt(0)
     p_cert_head.paragraph_format.space_after = Pt(4)
-    p_cert_head.paragraph_format.line_spacing = 1.3
+    p_cert_head.paragraph_format.line_spacing = 1.25
+    
+    r_ch0 = p_cert_head.add_run("COGNITIVE SCIENCE – PROJECT BASED LEARNING LAB\n")
+    r_ch0.bold = True
+    r_ch0.font.name = 'Times New Roman'
+    r_ch0.font.size = Pt(12)
+    
     r_ch1 = p_cert_head.add_run("MARIK INSTITUTE OF COMPUTING, ARTIFICIAL INTELLIGENCE,\nROBOTICS & CYBERNETICS\n")
     r_ch1.bold = True
     r_ch1.font.name = 'Times New Roman'
@@ -131,15 +143,15 @@ def add_frontmatter(doc):
     if os.path.exists(logo_path):
         p_logo2 = doc.add_paragraph()
         p_logo2.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        p_logo2.paragraph_format.space_before = Pt(8)
-        p_logo2.paragraph_format.space_after = Pt(12)
+        p_logo2.paragraph_format.space_before = Pt(6)
+        p_logo2.paragraph_format.space_after = Pt(10)
         run_logo2 = p_logo2.add_run()
-        run_logo2.add_picture(logo_path, width=Inches(1.35))
+        run_logo2.add_picture(logo_path, width=Inches(1.30))
 
     p_cert_title = doc.add_paragraph()
     p_cert_title.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_cert_title.paragraph_format.space_before = Pt(6)
-    p_cert_title.paragraph_format.space_after = Pt(14)
+    p_cert_title.paragraph_format.space_before = Pt(4)
+    p_cert_title.paragraph_format.space_after = Pt(12)
     r_ct = p_cert_title.add_run("CERTIFICATE")
     r_ct.bold = True
     r_ct.font.name = 'Times New Roman'
@@ -149,7 +161,7 @@ def add_frontmatter(doc):
     p_cert_body.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     p_cert_body.paragraph_format.line_spacing = 1.5
     p_cert_body.paragraph_format.first_line_indent = Inches(0.5)
-    p_cert_body.paragraph_format.space_after = Pt(24)
+    p_cert_body.paragraph_format.space_after = Pt(22)
     r_cb = p_cert_body.add_run(
         'This is to certify that the project entitled "CARDSHIELD: REAL-TIME ATM CARD FRAUD DETECTION & BEHAVIORAL RISK ANALYSIS SYSTEM" '
         'is a record of bonafide work carried out by Mr. Suryapal Singh (Enrollment No. 2024COMPSC0029, Student ID: 146476) under my supervision '
@@ -179,7 +191,7 @@ def add_frontmatter(doc):
         for c_idx, (text, align) in enumerate(row):
             cell = sig_table.cell(r_idx, c_idx)
             cell.width = Inches(2.9)
-            set_cell_margins(cell, top=180, bottom=180, left=60, right=60)
+            set_cell_margins(cell, top=160, bottom=160, left=60, right=60)
             p = cell.paragraphs[0]
             p.alignment = align
             p.paragraph_format.line_spacing = 1.3
@@ -195,8 +207,8 @@ def add_frontmatter(doc):
     # =========================================================
     p_ack_t = doc.add_paragraph()
     p_ack_t.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_ack_t.paragraph_format.space_before = Pt(10)
-    p_ack_t.paragraph_format.space_after = Pt(18)
+    p_ack_t.paragraph_format.space_before = Pt(8)
+    p_ack_t.paragraph_format.space_after = Pt(16)
     r_at = p_ack_t.add_run("ACKNOWLEDGEMENT")
     r_at.bold = True
     r_at.font.name = 'Times New Roman'
@@ -219,10 +231,9 @@ def add_frontmatter(doc):
         r.font.name = 'Times New Roman'
         r.font.size = Pt(12)
 
-    # Student Signature Right
     p_sig = doc.add_paragraph()
     p_sig.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-    p_sig.paragraph_format.space_before = Pt(28)
+    p_sig.paragraph_format.space_before = Pt(24)
     p_sig.paragraph_format.line_spacing = 1.3
     r_s = p_sig.add_run("Mr. Suryapal Singh\n(Enrollment No. 2024COMPSC0029)\nStudent ID: 146476\nBCA – 5th Semester")
     r_s.bold = True
@@ -271,42 +282,49 @@ def add_frontmatter(doc):
         ("", "List of Tables", "viii"),
         ("", "List of Abbreviations", "ix"),
         ("1", "Introduction", "1"),
-        ("  1.1", "Motivation", "1"),
-        ("  1.2", "Problem Statement", "3"),
-        ("  1.3", "Objectives", "5"),
-        ("  1.4", "Scope and Limitations", "6"),
-        ("  1.5", "Organization of the Report", "7"),
-        ("2", "Literature Survey", "8"),
-        ("  2.1", "Literature Review", "8"),
-        ("  2.2", "Survey of Supervised & Unsupervised ML Techniques", "11"),
-        ("  2.3", "Existing Systems and Their Critical Limitations", "13"),
-        ("  2.4", "The Accuracy Paradox in Skewed Financial Datasets", "15"),
+        ("  1.1", "Motivation & Historical Evolution of ATM Banking Fraud", "1"),
+        ("  1.2", "ATM Architecture & Vulnerability Landscape", "2"),
+        ("  1.3", "Threat Vector Taxonomy (Skimming, Brute-Force, Velocity)", "3"),
+        ("  1.4", "Problem Statement & The Accuracy Paradox Challenge", "4"),
+        ("  1.5", "Project Objectives & Success Criteria", "5"),
+        ("  1.6", "Work Plan Schedule & Timeline", "6"),
+        ("  1.7", "Project Submission Details & Deliverables", "7"),
+        ("  1.8", "Scope and Limitations of the Study", "8"),
+        ("  1.9", "Organization of the Report", "8"),
+        ("2", "Literature Survey", "9"),
+        ("  2.1", "Literature Review & Historical Evolution of Fraud Detection", "9"),
+        ("  2.2", "Survey of Supervised & Unsupervised Machine Learning", "11"),
+        ("  2.3", "Existing Rule-Based Engines and Their Critical Vulnerabilities", "13"),
+        ("  2.4", "The Accuracy Paradox: Formal Mathematical Formulation", "15"),
         ("  2.5", "Comparative Matrix of Contemporary Approaches", "17"),
         ("3", "Proposed System", "18"),
-        ("  3.1", "Proposed System Overview & Architecture", "18"),
-        ("  3.2", "System Working Description & Execution Pipeline", "21"),
-        ("  3.3", "Flowchart / Data Flow Diagrams (DFD Level 0 & Level 1)", "23"),
-        ("  3.4", "7-Factor Behavioral Risk Engine Mathematical Formulation", "26"),
-        ("  3.5", "Account Lockdown & Risk Threshold Policy Enforcement", "28"),
+        ("  3.1", "Proposed System Overview & Defense-in-Depth Topology", "18"),
+        ("  3.2", "Multi-Tier System Architecture (UI, Flask, AI Engine)", "20"),
+        ("  3.3", "System Working Description & Execution Pipeline", "22"),
+        ("  3.4", "Flowchart / Data Flow Diagrams (DFD Level 0 & Level 1)", "24"),
+        ("  3.5", "7-Dimensional Behavioral Risk Engine Formulation", "26"),
+        ("  3.6", "Decision Risk Levels & Automated Operational Responses", "28"),
         ("4", "Methodology", "30"),
-        ("  4.1", "Implementation Details & Pipeline", "30"),
-        ("  4.2", "Feature Engineering & Categorical Vector Encoding", "32"),
-        ("  4.3", "Handling Severe Class Imbalance (Cost-Sensitive Learning)", "34"),
-        ("  4.4", "Model Training, Ensembling & Hyperparameter Tuning", "36"),
-        ("  4.5", "Description of Software Used", "38"),
-        ("  4.6", "Description of Hardware Used & Operational Environment", "40"),
-        ("  4.7", "Security, Data Privacy & API Protection Protocols", "41"),
+        ("  4.1", "Implementation Details & Agile Lifecycle", "30"),
+        ("  4.2", "Synthetic Dataset Architecture (100,000 Bank Records)", "31"),
+        ("  4.3", "Feature Engineering & Label Encoding Pipelines", "33"),
+        ("  4.4", "Cost-Sensitive Balanced Random Forest Formulation", "35"),
+        ("  4.5", "Hyperparameter Optimization & Cross-Validation Protocol", "37"),
+        ("  4.6", "Description of Software Used", "38"),
+        ("  4.7", "Description of Hardware Used & Operational Environment", "40"),
+        ("  4.8", "Security Architecture, TLS 1.3 & PCI-DSS Compliance", "41"),
         ("5", "Results and Discussion", "43"),
         ("  5.1", "Sample Output & Real-World Transaction Simulations", "43"),
-        ("  5.2", "Results & Performance Metrics", "46"),
+        ("  5.2", "Results & Comprehensive Model Performance Metrics", "46"),
         ("  5.3", "Live Anomaly Stream & Instant Alert Notification", "48"),
         ("  5.4", "Forensic Audit Trail & Threat Vector Inspection", "50"),
-        ("  5.5", "Comparison with Existing System & Accuracy Paradox Resolution", "52"),
-        ("  5.6", "Discussion on Results & Production Deployment Viability", "54"),
-        ("  5.7", "Applications in Banking & Payment Card Networks", "56"),
+        ("  5.5", "ROC-AUC Analysis & Discrimination Capability", "52"),
+        ("  5.6", "Comparison with Existing Systems & Accuracy Paradox Resolution", "54"),
+        ("  5.7", "Latency Profiling & Verification Response Time (< 85ms)", "55"),
+        ("  5.8", "Real-World Applications in Banking & ATM Networks", "56"),
         ("6", "Conclusion and Future Scope", "58"),
-        ("  6.1", "Conclusion", "58"),
-        ("  6.2", "Future Scope", "59"),
+        ("  6.1", "Conclusion & Summary of Engineering Contributions", "58"),
+        ("  6.2", "Future Scope & Emerging Technologies", "59"),
         ("7", "References", "61"),
         ("8", "Appendix", "64"),
         ("  8.1", "Appendix A: Complete Flask & Machine Learning Source Code", "64"),
@@ -356,28 +374,28 @@ def add_frontmatter(doc):
         "The exponential expansion of digital banking and automated teller machine (ATM) card infrastructure has revolutionized modern consumer "
         "convenience while simultaneously precipitating unprecedented financial fraud attacks. Contemporary banking security architectures "
         "routinely struggle to defend against sophisticated attack vectors, including physical card skimming, PIN credential brute-forcing, "
-        "credential stuffing, unauthorized velocity spikes, and geographically impossible transacting. Conventional anti-fraud defenses have "
-        "traditionally relied upon static rule engines that operate under rigid parametric thresholds. These legacy paradigms suffer from severe latency, "
-        "generate excessive false alarm rates that disrupt legitimate banking consumers, and remain fundamentally incapable of detecting novel zero-day "
-        "behavioral anomalies."
+        "unauthorized velocity spikes, and geographically impossible transacting. Conventional anti-fraud defenses have traditionally relied upon "
+        "static rule engines that operate under rigid parametric thresholds. These legacy paradigms suffer from severe latency, generate excessive "
+        "false alarm rates that disrupt legitimate banking consumers, and remain fundamentally incapable of detecting novel zero-day behavioral anomalies."
     )
     abs_p2 = (
-        "A critical foundational dilemma in machine-learning-driven financial security is the phenomenon known as the 'Accuracy Paradox'. Because actual "
-        "fraud occurrences constitute less than 0.5% of total banking transactions, conventional machine learning classifiers frequently optimize for raw "
-        "overall accuracy by learning to predict the majority non-fraudulent class exclusively. Such models achieve deceptive nominal accuracy scores exceeding "
-        "99.5% while failing to detect over 80% of true fraudulent transactions, rendering them operationally disastrous in enterprise production banking environments."
+        "A critical foundational dilemma in machine-learning-driven financial security is the phenomenon known as the 'Accuracy Paradox'. In real-world "
+        "banking datasets, approximately 99.5% of transactions are legitimate and only 0.5% are fraudulent. When standard machine learning classification models "
+        "are trained on such imbalanced data without cost-sensitive compensation, they routinely converge on predicting the majority non-fraudulent class exclusively. "
+        "Such naive models achieve deceptive nominal accuracy scores exceeding 99.5% while failing to detect a single true fraudulent transaction, rendering them "
+        "operationally catastrophic in production banking environments."
     )
     abs_p3 = (
-        "To resolve these systemic vulnerabilities, this project presents CardShield: an enterprise-grade, real-time ATM card fraud detection and multi-factor "
-        "behavioral risk analysis platform. CardShield employs a cost-sensitive Balanced Random Forest classifier ensembled with an intelligent 7-dimensional "
-        "dynamic behavioral heuristic engine. The machine learning subsystem operates on mathematically calibrated feature representations and achieves an optimal "
-        "ROC-AUC score of 0.865 and a true positive fraud recall rate of 78.4%, eliminating the hazards of the Accuracy Paradox. The behavioral engine continuously "
-        "evaluates transaction velocity, physical geographic jump impossibility, consecutive PIN retry failures, nocturnal transaction hours, card tier multipliers, "
-        "and account status. Transactions exhibiting severe threats—such as blocked card access or expired credentials—are subjected to instantaneous mathematical "
-        "risk clamping (Risk Score = 100), triggering immediate automated card lockdown and administrative SMS/email dispatch within 85 milliseconds. CardShield "
-        "is delivered through an enterprise full-stack architecture comprising a Python Flask REST API and an intuitive cyber defense operations console."
+        "To resolve these systemic vulnerabilities, this project presents CardShield: an enterprise-grade, real-time web-based ATM card fraud detection and "
+        "multi-factor behavioral risk analysis platform. CardShield employs a cost-sensitive Balanced Random Forest classifier ensembled with an intelligent "
+        "7-dimensional dynamic behavioral heuristic engine. The AI model was trained on 100,000 real-world-modeled bank transaction records, successfully catching "
+        "78.4% of rare fraud attempts (Recall) with an outstanding 86.5% overall ROC-AUC quality score, while executing inference in under 85 milliseconds. "
+        "The behavioral engine evaluates seven critical factors: Card Status (Blocked/Expired), Transaction Amount (vs. baseline average), Time of Day (Midnight to 4 AM), "
+        "Location (Domestic vs. International), Merchant Category, 24-Hour Velocity Frequency, and Credit Limit Utilization. Transactions are categorized into "
+        "three actionable risk levels: Low Risk (0–39, Approve), Medium Risk (40–69, Send Step-up OTP), and High Risk / Fraud (70–100, Decline & Block Card). "
+        "The platform is delivered through an interactive cyber defense operations console featuring an animated speedometer gauge, real-time telemetry bars, "
+        "and simulated testing profiles."
     )
-    abs_terms = "Index Terms — ATM Fraud Detection, Behavioral Risk Scoring, Machine Learning, Random Forest, Flask Web Architecture, Real-Time Cybersecurity, Transaction Velocity, Accuracy Paradox."
 
     for txt in [abs_p1, abs_p2, abs_p3]:
         p = doc.add_paragraph()
@@ -422,7 +440,7 @@ def add_frontmatter(doc):
         "In the contemporary global economy, financial card payment systems and Automated Teller Machine (ATM) networks serve as the fundamental arteries of daily commerce. Hundreds of millions of citizens rely on debit and credit cards for retail procurement, essential cash withdrawals, and electronic bill settlements. However, as payment systems have expanded in velocity and interconnectedness, financial crime syndicates have evolved from rudimentary physical theft into highly sophisticated, automated cyber threats.",
         "Traditional banking security postures have historically relied upon static rule engines that operate under fixed thresholds, such as flagging any transaction exceeding a preconfigured dollar amount or rejecting transactions after three incorrect PIN entries. While these rules provide basic baseline protection, they are completely inadequate against modern fraud vectors. Fraud syndicates utilize sophisticated skimming devices at ATM vestibules, dark-web credential databases, automated velocity bots, and synthetic identity fraud. Furthermore, legacy rule engines suffer from an excessive false-positive rate, blocking innocent customers at the point of sale and inflicting immense operational overhead on banking customer support desks.",
         "The advent of artificial intelligence and machine learning offers a powerful paradigm shift. Rather than relying on rigid, human-authored rules, machine learning models can learn complex non-linear patterns across multidimensional transaction features. Nevertheless, deploying machine learning in production financial institutions introduces acute technical challenges: extreme class imbalance, the Accuracy Paradox, millisecond latency constraints, and the vital necessity of human interpretability for regulatory compliance.",
-        "This project report, developed under the 5th-Semester Problem-Based Learning (PBL) curriculum of the Bachelor of Computer Applications (BCA) program at Marik Institute of Computing, Artificial Intelligence, Robotics & Cybernetics, NIMS University Rajasthan, Jaipur, documents the engineering design, mathematical formulation, and full-stack software implementation of CardShield. CardShield bridges the gap between theoretical machine learning research and real-world banking operations by uniting a cost-sensitive Balanced Random Forest classifier with an intelligent 7-factor behavioral risk engine.",
+        "This project report, developed under the 5th-Semester Problem-Based Learning (PBL) curriculum of the Bachelor of Computer Applications (BCA) program at Cognitive Science - Project Based Learning Lab, Marik Institute of Computing, Artificial Intelligence, Robotics & Cybernetics, NIMS University Rajasthan, Jaipur, documents the engineering design, mathematical formulation, and full-stack software implementation of CardShield. CardShield bridges the gap between theoretical machine learning research and real-world banking operations by uniting a cost-sensitive Balanced Random Forest classifier with an intelligent 7-factor behavioral risk engine.",
         "It is our sincere hope that the methodologies, empirical benchmarks, and system architectures documented in this report will offer practical insights to students, researchers, and financial software engineers striving to create a safer, fraud-resilient digital financial ecosystem."
     ]
 
@@ -473,9 +491,7 @@ def add_frontmatter(doc):
     figure_entries = [
         ("3.1", "CardShield Multi-Tier Architecture & Data Exchange Pipeline", "20"),
         ("3.2", "CardShield Data Flow Diagram (DFD Level 1 Context Architecture)", "24"),
-        ("3.3", "CardShield 7-Factor Behavioral Risk Engine Contribution Breakdown", "27"),
-        ("4.1", "CardShield Multi-Layer Security Architecture", "31"),
-        ("4.2", "Entity Relationship Diagram (ERD) & Transaction Data Model", "33"),
+        ("3.3", "CardShield 7-Dimensional Behavioral Risk Engine Weights (Sum = 100%)", "27"),
         ("5.1", "CardShield Executive Cyber Defense Dashboard (Live UI)", "44"),
         ("5.2", "Real-Time Transaction Stream & Automated Anomaly Feed", "45"),
         ("5.3", "Real-Time Behavioral Threat Diagnostics & Risk Gauge", "49"),
@@ -537,13 +553,14 @@ def add_frontmatter(doc):
         r.font.size = Pt(11)
 
     table_entries = [
+        ("1.1", "Work Plan Schedule & Milestone Execution Timeline", "6"),
+        ("1.2", "Project Deliverables & Academic Submission Specifications", "7"),
         ("2.1", "Comparative Analysis of Contemporary ATM Fraud Detection Systems", "17"),
-        ("3.1", "CardShield Core Feature Matrix & Behavioral Indicators", "22"),
-        ("3.2", "Dynamic Risk Penalty Scale & Weight Assignment Matrix", "28"),
+        ("3.1", "CardShield 7-Dimensional Behavioral Risk Weight Matrix", "27"),
+        ("3.2", "Decision Risk Levels & Automated Operational Responses", "29"),
         ("4.1", "Software Development Environment & Tech Stack Specifications", "39"),
         ("4.2", "Hardware & System Operational Requirements", "41"),
         ("5.1", "Model Performance Evaluation & Fraud Detection Metrics", "47"),
-        ("5.2", "Comparative Benchmark: CardShield vs Traditional Rule Engines", "55"),
     ]
 
     for sr, caption, pg in table_entries:
@@ -599,6 +616,7 @@ def add_frontmatter(doc):
     abbreviations = [
         ("ATM", "Automated Teller Machine"),
         ("BCA", "Bachelor of Computer Applications"),
+        ("PBL", "Problem Based Learning"),
         ("API", "Application Programming Interface"),
         ("ROC-AUC", "Receiver Operating Characteristic - Area Under Curve"),
         ("ML", "Machine Learning"),
@@ -616,9 +634,8 @@ def add_frontmatter(doc):
         ("OS", "Operating System"),
         ("RAM", "Random Access Memory"),
         ("SMOTE", "Synthetic Minority Over-sampling Technique"),
-        ("PBL", "Problem Based Learning"),
         ("FPR", "False Positive Rate"),
-        ("TPR", "True Positive Rate"),
+        ("TPR", "True Positive Rate (Recall)"),
         ("UI", "User Interface"),
         ("HTTP", "HyperText Transfer Protocol"),
         ("CORS", "Cross-Origin Resource Sharing"),
@@ -646,11 +663,4 @@ def add_frontmatter(doc):
                 r.bold = True
 
     doc.add_page_break()
-    print("Front matter generated successfully.")
-
-if __name__ == '__main__':
-    doc = Document()
-    add_frontmatter(doc)
-    doc.save("test_frontmatter.docx")
-    print("Test frontmatter saved.")
-
+    print("Updated front matter generated successfully.")

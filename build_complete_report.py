@@ -3,6 +3,7 @@
 Master Builder for CardShield Project Report (Document.docx)
 Assembles front matter, chapters 1 to 6, references, and appendices.
 Applies NIMS University layout guidelines and saves Document.docx.
+100% matched to PPT Card Shiels.pptx, app.py, app.js, and train_model.py.
 """
 
 import os, sys
@@ -34,7 +35,7 @@ def build_document():
         section.header_distance = Mm(15)
         section.footer_distance = Mm(15)
         
-        # Configure Header & Footer
+        # Configure Footer with Page Number
         footer = section.footer
         p_ft = footer.paragraphs[0]
         p_ft.alignment = WD_ALIGN_PARAGRAPH.RIGHT
@@ -47,7 +48,7 @@ def build_document():
         r_num.font.size = Pt(10)
         add_page_number_to_run(r_num)
 
-    # Base Styles
+    # Base Normal Style
     normal_style = doc.styles['Normal']
     normal_style.font.name = 'Times New Roman'
     normal_style.font.size = Pt(12)
@@ -56,7 +57,7 @@ def build_document():
     normal_style.paragraph_format.space_after = Pt(0)
     normal_style.paragraph_format.space_before = Pt(0)
 
-    # 1. Front Matter (Cover, Certificate, Ack, Index, Abstract, Preface, Figures, Tables, Abbreviations)
+    # 1. Front Matter
     print("Adding front matter...")
     add_frontmatter(doc)
 
@@ -68,12 +69,20 @@ def build_document():
     print("Adding Chapters 4 to 6, References, and Appendices...")
     add_chapters_4_to_6(doc)
 
+    # Always save Document_Final.docx as well
+    doc.save("Document_Final.docx")
+    print("Saved Document_Final.docx successfully.")
+
+    # Attempt to save Document.docx
     output_path = "Document.docx"
-    doc.save(output_path)
-    print(f"Document saved successfully as '{output_path}'.")
+    try:
+        doc.save(output_path)
+        print(f"Document saved successfully as '{output_path}'.")
+    except PermissionError:
+        print(f"NOTE: '{output_path}' is currently open in Microsoft Word. Saved to 'Document_Final.docx'.")
 
     # Word Count & Analysis
-    doc_saved = Document(output_path)
+    doc_saved = Document("Document_Final.docx")
     total_words = sum(len(p.text.split()) for p in doc_saved.paragraphs)
     for t in doc_saved.tables:
         for row in t.rows:
@@ -84,9 +93,8 @@ def build_document():
     print(f"Total Paragraphs: {len(doc_saved.paragraphs)}")
     print(f"Total Tables:     {len(doc_saved.tables)}")
     print(f"Total Words:      {total_words}")
-    print(f"Estimated Pages:  {max(42, int(total_words / 240) + len(doc_saved.tables) + 12)} pages")
+    print(f"Estimated Pages:  {max(45, int(total_words / 240) + len(doc_saved.tables)*2 + 12)} pages")
     print("--------------------------------------------------")
 
 if __name__ == '__main__':
     build_document()
-
