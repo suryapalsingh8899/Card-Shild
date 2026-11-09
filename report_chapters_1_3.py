@@ -10,7 +10,7 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from generate_all import set_cell_background, set_cell_margins, set_table_borders
 
-def add_p(doc, text, indent=True, space_after=6):
+def add_p(doc, text, indent=True, space_after=4):
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     p.paragraph_format.line_spacing = 1.5
@@ -23,12 +23,14 @@ def add_p(doc, text, indent=True, space_after=6):
     run.font.size = Pt(12)
     return p
 
-def add_chapter_title(doc, chap_num_str, title_str):
+def add_chapter_title(doc, chap_num_str, title_str, page_break=True):
     p1 = doc.add_paragraph()
     p1.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p1.paragraph_format.line_spacing = 1.5
     p1.paragraph_format.space_before = Pt(12)
     p1.paragraph_format.space_after = Pt(2)
+    if page_break:
+        p1.paragraph_format.page_break_before = True
     run1 = p1.add_run(chap_num_str.upper())
     run1.bold = True
     run1.font.name = 'Times New Roman'
@@ -38,7 +40,8 @@ def add_chapter_title(doc, chap_num_str, title_str):
     p2.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p2.paragraph_format.line_spacing = 1.5
     p2.paragraph_format.space_before = Pt(0)
-    p2.paragraph_format.space_after = Pt(16)
+    p2.paragraph_format.space_after = Pt(14)
+    p2.paragraph_format.keep_with_next = True
     run2 = p2.add_run(title_str.upper())
     run2.bold = True
     run2.font.name = 'Times New Roman'
@@ -48,8 +51,9 @@ def add_sec_heading(doc, sec_str):
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.LEFT
     p.paragraph_format.line_spacing = 1.5
-    p.paragraph_format.space_before = Pt(14)
-    p.paragraph_format.space_after = Pt(4)
+    p.paragraph_format.space_before = Pt(12)
+    p.paragraph_format.space_after = Pt(3)
+    p.paragraph_format.keep_with_next = True
     run = p.add_run(sec_str)
     run.bold = True
     run.font.name = 'Times New Roman'
@@ -62,6 +66,7 @@ def add_subsec_heading(doc, subsec_str):
     p.paragraph_format.line_spacing = 1.5
     p.paragraph_format.space_before = Pt(10)
     p.paragraph_format.space_after = Pt(2)
+    p.paragraph_format.keep_with_next = True
     run = p.add_run(subsec_str)
     run.bold = True
     run.italic = True
@@ -69,25 +74,26 @@ def add_subsec_heading(doc, subsec_str):
     run.font.size = Pt(12)
     return p
 
-def add_fig(doc, img_path, caption_str, width_in=5.4):
+def add_fig(doc, img_path, caption_str, width_in=4.6):
     if os.path.exists(img_path):
         p_img = doc.add_paragraph()
         p_img.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        p_img.paragraph_format.space_before = Pt(10)
-        p_img.paragraph_format.space_after = Pt(4)
+        p_img.paragraph_format.space_before = Pt(8)
+        p_img.paragraph_format.space_after = Pt(2)
         p_img.paragraph_format.first_line_indent = Inches(0)
+        p_img.paragraph_format.keep_with_next = True
         run_img = p_img.add_run()
         run_img.add_picture(img_path, width=Inches(width_in))
         
         p_cap = doc.add_paragraph()
         p_cap.alignment = WD_ALIGN_PARAGRAPH.CENTER
         p_cap.paragraph_format.space_before = Pt(2)
-        p_cap.paragraph_format.space_after = Pt(12)
+        p_cap.paragraph_format.space_after = Pt(10)
         p_cap.paragraph_format.first_line_indent = Inches(0)
         run_cap = p_cap.add_run(caption_str)
         run_cap.bold = True
         run_cap.font.name = 'Times New Roman'
-        run_cap.font.size = Pt(11)
+        run_cap.font.size = Pt(10.5)
 
 def add_chapters_1_to_3(doc):
     # =========================================================
@@ -254,8 +260,6 @@ def add_chapters_1_to_3(doc):
     add_sec_heading(doc, "1.9 Organization of the Report")
     add_p(doc, "The remainder of this report is organized as follows: Chapter 2 provides an exhaustive literature survey reviewing existing fraud detection paradigms, machine learning models, and rule-based limitations. Chapter 3 details the proposed CardShield system architecture, execution pipelines, data flow diagrams, and the mathematical formulation of the 7-factor behavioral risk engine. Chapter 4 describes the methodology, feature engineering, software/hardware environments, and security protocols. Chapter 5 presents empirical results, confusion matrices, ROC-AUC curves, dashboard outputs, and comparative benchmarks. Chapter 6 concludes the report and identifies directions for future enhancement, followed by References and Appendices.")
 
-    doc.add_page_break()
-
     # =========================================================
     # CHAPTER 2: LITERATURE SURVEY
     # =========================================================
@@ -336,8 +340,6 @@ def add_chapters_1_to_3(doc):
             if i == 4 and "CardShield" in row_data[0]:
                 set_cell_background(c, "E8F8F5")
 
-    doc.add_page_break()
-
     # =========================================================
     # CHAPTER 3: PROPOSED SYSTEM
     # =========================================================
@@ -353,7 +355,7 @@ def add_chapters_1_to_3(doc):
     add_p(doc, "2. API Gateway & Controller Tier (app.py): Powered by Python Flask and Werkzeug, this tier provides RESTful endpoints (`/analyze`, `/health`, `/`), parses incoming JSON transaction payloads, maps categorical values to trained encoders, computes behavioral heuristics, and orchestrates ensemble risk fusion.")
     add_p(doc, "3. AI Machine Learning Tier (fraud_model.pkl): Houses the cost-sensitive Balanced Random Forest classifier trained on 100,000 real-world-modeled bank transactions, generating calibrated probability outputs in under 20 milliseconds.")
 
-    add_fig(doc, "report_images/fig_system_architecture.png", "Figure 3.1: CardShield Multi-Tier Architecture & Data Exchange Pipeline", width_in=5.6)
+    add_fig(doc, "report_images/fig_system_architecture.png", "Figure 3.1: CardShield Multi-Tier Architecture & Data Exchange Pipeline", width_in=4.6)
 
     add_sec_heading(doc, "3.3 System Working Description & Execution Pipeline")
     add_p(doc, "When a transaction is submitted via the operations console or an ATM terminal, the authorization payload is transmitted to the CardShield API endpoint (`POST /analyze`). The transaction lifecycle proceeds through the following sequential stages:")
@@ -369,7 +371,7 @@ def add_chapters_1_to_3(doc):
     add_sec_heading(doc, "3.4 Flowchart / Data Flow Diagrams (DFD Level 0 & Level 1)")
     add_p(doc, "Figure 3.2 illustrates the DFD Level 1 architecture, decomposing the transaction evaluation process into distinct sub-processes: Input Validation & Encoding (Process 1.0), Balanced RF Inference (Process 2.0), 7-Factor Behavioral Scoring (Process 3.0), and Ensemble Fusion & Operational Enforcement (Process 4.0).")
 
-    add_fig(doc, "report_images/fig_data_flow_diagram.png", "Figure 3.2: CardShield Data Flow Diagram (DFD Level 1 Context Architecture)", width_in=5.6)
+    add_fig(doc, "report_images/fig_data_flow_diagram.png", "Figure 3.2: CardShield Data Flow Diagram (DFD Level 1 Context Architecture)", width_in=4.6)
 
     add_sec_heading(doc, "3.5 7-Dimensional Behavioral Risk Engine Formulation")
     add_p(doc, "As specified in Slide 4 of the project presentation and implemented in `app.js` and `app.py`, CardShield evaluates seven critical behavioral risk factors totaling exactly 100% contribution weight. Table 3.1 delineates the weight distribution, trigger conditions, and penalty scales.")
@@ -425,7 +427,7 @@ def add_chapters_1_to_3(doc):
             if i == 0:
                 r.bold = True
 
-    add_fig(doc, "report_images/fig_risk_weights.png", "Figure 3.3: CardShield 7-Dimensional Behavioral Risk Engine Weights (Sum = 100%)", width_in=5.4)
+    add_fig(doc, "report_images/fig_risk_weights.png", "Figure 3.3: CardShield 7-Dimensional Behavioral Risk Engine Weights (Sum = 100%)", width_in=4.5)
 
     add_sec_heading(doc, "3.6 Decision Risk Levels & Automated Operational Responses")
     add_p(doc, "To provide clear, actionable operational instructions for bank officers and ATM terminal switches, CardShield maps composite risk scores (0 to 100) into three structured operational tiers (matching Slide 6 of the project presentation). Table 3.2 outlines the operational actions and visual indicator badges.")
@@ -477,7 +479,6 @@ def add_chapters_1_to_3(doc):
             if i == 0:
                 r.bold = True
 
-    doc.add_page_break()
     print("Updated Chapters 1 to 3 written successfully.")
 
 if __name__ == '__main__':

@@ -10,7 +10,7 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from generate_all import set_cell_background, set_cell_margins, set_table_borders
 
-def add_p(doc, text, indent=True, space_after=6):
+def add_p(doc, text, indent=True, space_after=4):
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     p.paragraph_format.line_spacing = 1.5
@@ -23,12 +23,14 @@ def add_p(doc, text, indent=True, space_after=6):
     run.font.size = Pt(12)
     return p
 
-def add_chapter_title(doc, chap_num_str, title_str):
+def add_chapter_title(doc, chap_num_str, title_str, page_break=True):
     p1 = doc.add_paragraph()
     p1.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p1.paragraph_format.line_spacing = 1.5
     p1.paragraph_format.space_before = Pt(12)
     p1.paragraph_format.space_after = Pt(2)
+    if page_break:
+        p1.paragraph_format.page_break_before = True
     run1 = p1.add_run(chap_num_str.upper())
     run1.bold = True
     run1.font.name = 'Times New Roman'
@@ -38,7 +40,8 @@ def add_chapter_title(doc, chap_num_str, title_str):
     p2.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p2.paragraph_format.line_spacing = 1.5
     p2.paragraph_format.space_before = Pt(0)
-    p2.paragraph_format.space_after = Pt(16)
+    p2.paragraph_format.space_after = Pt(14)
+    p2.paragraph_format.keep_with_next = True
     run2 = p2.add_run(title_str.upper())
     run2.bold = True
     run2.font.name = 'Times New Roman'
@@ -48,8 +51,9 @@ def add_sec_heading(doc, sec_str):
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.LEFT
     p.paragraph_format.line_spacing = 1.5
-    p.paragraph_format.space_before = Pt(14)
-    p.paragraph_format.space_after = Pt(4)
+    p.paragraph_format.space_before = Pt(12)
+    p.paragraph_format.space_after = Pt(3)
+    p.paragraph_format.keep_with_next = True
     run = p.add_run(sec_str)
     run.bold = True
     run.font.name = 'Times New Roman'
@@ -62,6 +66,7 @@ def add_subsec_heading(doc, subsec_str):
     p.paragraph_format.line_spacing = 1.5
     p.paragraph_format.space_before = Pt(10)
     p.paragraph_format.space_after = Pt(2)
+    p.paragraph_format.keep_with_next = True
     run = p.add_run(subsec_str)
     run.bold = True
     run.italic = True
@@ -69,25 +74,26 @@ def add_subsec_heading(doc, subsec_str):
     run.font.size = Pt(12)
     return p
 
-def add_fig(doc, img_path, caption_str, width_in=5.4):
+def add_fig(doc, img_path, caption_str, width_in=4.4):
     if os.path.exists(img_path):
         p_img = doc.add_paragraph()
         p_img.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        p_img.paragraph_format.space_before = Pt(10)
-        p_img.paragraph_format.space_after = Pt(4)
+        p_img.paragraph_format.space_before = Pt(8)
+        p_img.paragraph_format.space_after = Pt(2)
         p_img.paragraph_format.first_line_indent = Inches(0)
+        p_img.paragraph_format.keep_with_next = True
         run_img = p_img.add_run()
         run_img.add_picture(img_path, width=Inches(width_in))
         
         p_cap = doc.add_paragraph()
         p_cap.alignment = WD_ALIGN_PARAGRAPH.CENTER
         p_cap.paragraph_format.space_before = Pt(2)
-        p_cap.paragraph_format.space_after = Pt(12)
+        p_cap.paragraph_format.space_after = Pt(10)
         p_cap.paragraph_format.first_line_indent = Inches(0)
         run_cap = p_cap.add_run(caption_str)
         run_cap.bold = True
         run_cap.font.name = 'Times New Roman'
-        run_cap.font.size = Pt(11)
+        run_cap.font.size = Pt(10.5)
 
 def add_chapters_4_to_6(doc):
     # =========================================================
@@ -225,8 +231,6 @@ def add_chapters_4_to_6(doc):
     add_p(doc, "• CORS Whitelisting: Cross-Origin Resource Sharing restricts API invocation solely to verified bank domains.")
     add_p(doc, "• Tokenization & Sanitization: Cardholder primary account numbers are masked to guarantee compliance with PCI-DSS Requirement 3.")
 
-    doc.add_page_break()
-
     # =========================================================
     # CHAPTER 5: RESULTS AND DISCUSSION
     # =========================================================
@@ -236,11 +240,11 @@ def add_chapters_4_to_6(doc):
     add_p(doc, "To validate the operational efficacy of CardShield, extensive empirical testing was conducted across diverse transaction scenarios, including legitimate routine withdrawals, edge-case behavioral shifts, and coordinated cyber attacks.")
     add_p(doc, "Figure 5.1 illustrates the main executive dashboard of CardShield. The interface surfaces real-time system metrics: Total Transactions Monitored, Fraud Incident Count, Live System Threat Level (Low / Moderate / High), and Mean Verification Latency (< 85ms).")
 
-    add_fig(doc, "report_images/image4.png", "Figure 5.1: CardShield Executive Cyber Defense Dashboard (Live UI)", width_in=5.6)
+    add_fig(doc, "report_images/image4.png", "Figure 5.1: CardShield Executive Cyber Defense Dashboard (Live UI)", width_in=4.5)
 
     add_p(doc, "Figure 5.2 demonstrates the real-time transaction simulator and incoming event stream. Security analysts can inject arbitrary transaction payloads or select preconfigured testing vectors ('Normal Grocery Purchase', 'Midnight ATM Cash Drain', 'Rapid Velocity Attack', 'PIN Brute-Force Sequence'). The simulator displays the calculated Risk Meter alongside granular factor telemetry.")
 
-    add_fig(doc, "report_images/image5.png", "Figure 5.2: Real-Time Transaction Stream & Automated Anomaly Feed", width_in=5.6)
+    add_fig(doc, "report_images/image5.png", "Figure 5.2: Real-Time Transaction Stream & Automated Anomaly Feed", width_in=4.5)
 
     add_sec_heading(doc, "5.2 Results & Comprehensive Model Performance Metrics")
     add_p(doc, "The performance of the machine learning classifier was evaluated across five standard classification metrics: Precision, Recall (Sensitivity), F1-Score, Overall Accuracy, and the Area Under the Receiver Operating Characteristic Curve (ROC-AUC).")
@@ -298,26 +302,26 @@ def add_chapters_4_to_6(doc):
     add_sec_heading(doc, "5.3 Live Anomaly Stream & Instant Alert Notification")
     add_p(doc, "Figure 5.3 shows the real-time Behavioral Threat Diagnostics meter. When a transaction exhibits multiple concurrent risk signals—such as an uncharacteristically large withdrawal attempted at 3:15 AM following two consecutive incorrect PIN entries—the risk meter animates to 88% ('CRITICAL THREAT'). The system outputs explicit diagnostic explanations indicating which behavioral factors triggered the score.")
 
-    add_fig(doc, "report_images/image6.png", "Figure 5.3: Real-Time Behavioral Threat Diagnostics & Risk Gauge", width_in=5.4)
+    add_fig(doc, "report_images/image6.png", "Figure 5.3: Real-Time Behavioral Threat Diagnostics & Risk Gauge", width_in=4.4)
 
     add_p(doc, "When a transaction breaches the critical threshold (Score >= 70) or involves a blocked account, CardShield generates an instant modal emergency notification (Figure 5.4). The modal highlights the offending Card ID, authorization timestamp, terminal location, and automatic countermeasures executed: 'Transaction Rejected - Card Locked - SMS Notification Dispatched'.")
 
-    add_fig(doc, "report_images/image7.png", "Figure 5.4: Instant High-Risk Incident Alert & Account Lockdown Notification", width_in=5.4)
+    add_fig(doc, "report_images/image7.png", "Figure 5.4: Instant High-Risk Incident Alert & Account Lockdown Notification", width_in=4.4)
 
     add_sec_heading(doc, "5.4 Forensic Audit Trail & Threat Vector Inspection")
     add_p(doc, "Compliance with international financial regulations requires banks to maintain an immutable audit trail of all automated decisions. CardShield incorporates a dedicated forensic audit modal (Figure 5.5). Compliance officers can click on any suspicious transaction log to inspect the underlying raw feature values, the model probability P(Fraud), individual behavioral penalty scores, and terminal coordinates.")
 
-    add_fig(doc, "report_images/image8.png", "Figure 5.5: Forensic Audit Timeline & Suspicious Vector Inspection", width_in=5.4)
+    add_fig(doc, "report_images/image8.png", "Figure 5.5: Forensic Audit Timeline & Suspicious Vector Inspection", width_in=4.4)
 
     add_sec_heading(doc, "5.5 ROC-AUC Analysis & Discrimination Capability")
     add_p(doc, "Figure 5.6 plots the Receiver Operating Characteristic (ROC) curve comparing CardShield against the unweighted baseline model and a random chance classifier. The unweighted baseline model achieves a nominal accuracy of 99.5%, yet its ROC curve hugs the diagonal chance line (ROC-AUC = 0.542), proving that it possesses almost zero true discriminating capability. In contrast, CardShield's Balanced Random Forest curve arcs sharply toward the top-left coordinate, achieving an outstanding ROC-AUC of 0.865.")
 
-    add_fig(doc, "report_images/fig_roc_curve.png", "Figure 5.6: Receiver Operating Characteristic (ROC-AUC) Comparative Analysis", width_in=5.4)
+    add_fig(doc, "report_images/fig_roc_curve.png", "Figure 5.6: Receiver Operating Characteristic (ROC-AUC) Comparative Analysis", width_in=4.2)
 
     add_sec_heading(doc, "5.6 Comparison with Existing Systems & Accuracy Paradox Resolution")
     add_p(doc, "Figure 5.7 highlights the stark contrast between nominal accuracy and real fraud recall across models. While the naive model boasts 99.5% accuracy, its fraud recall is a disastrous 18.5%, meaning over 8 out of 10 cyber attacks escape undetected. CardShield delivers 78.4% fraud recall, catching nearly 4 times as many attacks while maintaining an exceptional 94.8% legitimate transaction pass rate.")
 
-    add_fig(doc, "report_images/fig_benchmark_comparison.png", "Figure 5.7: Performance Benchmark: Raw Accuracy vs CardShield Fraud Detection", width_in=5.4)
+    add_fig(doc, "report_images/fig_benchmark_comparison.png", "Figure 5.7: Performance Benchmark: Raw Accuracy vs CardShield Fraud Detection", width_in=4.4)
 
     add_sec_heading(doc, "5.7 Latency Profiling & Verification Response Time (< 85ms)")
     add_p(doc, "To verify that CardShield fulfills real-time banking switch latency requirements, a load testing benchmark was executed simulating concurrent transaction volumes from 100 to 1,000 requests per second. The end-to-end response time was measured at 72.4 milliseconds (with 99th-percentile latency at 94.1 milliseconds), comfortably below the 1,000-millisecond (< 1s) objective.")
@@ -327,8 +331,6 @@ def add_chapters_4_to_6(doc):
     add_p(doc, "• Retail ATM Network Gateways: Deployed at host authorization switches to evaluate cash withdrawals in real time.")
     add_p(doc, "• E-Commerce Payment Gateways: Inspecting online card-not-present (CNP) purchases against velocity and geographic anomalies.")
     add_p(doc, "• Core Banking SOC Platforms: Providing central compliance teams with live visual telemetry and automated account blocking capabilities.")
-
-    doc.add_page_break()
 
     # =========================================================
     # CHAPTER 6: CONCLUSION AND FUTURE SCOPE
@@ -350,13 +352,14 @@ def add_chapters_4_to_6(doc):
     add_p(doc, "3. Multimodal Biometric Verification: Integrating facial recognition and palm vein biometrics directly at physical ATM vestibules to cross-verify physical user identity against cardholder credentials.")
     add_p(doc, "4. Distributed Edge Computing: Deploying quantized, lightweight neural models directly onto ATM edge microcontrollers, enabling instant localized fraud interception even during network outages.")
 
-    doc.add_page_break()
-
     # =========================================================
     # REFERENCES (IEEE Alphabetical Format)
     # =========================================================
     p_ref_t = doc.add_paragraph()
     p_ref_t.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_ref_t.paragraph_format.page_break_before = True
+    p_ref_t.paragraph_format.space_before = Pt(8)
+    p_ref_t.paragraph_format.space_after = Pt(16)
     p_ref_t.paragraph_format.space_before = Pt(8)
     p_ref_t.paragraph_format.space_after = Pt(16)
     r_rt = p_ref_t.add_run("REFERENCES")
@@ -393,8 +396,6 @@ def add_chapters_4_to_6(doc):
         r.font.name = 'Times New Roman'
         r.font.size = Pt(11)
 
-    doc.add_page_break()
-
     # =========================================================
     # APPENDICES
     # =========================================================
@@ -418,8 +419,6 @@ def add_chapters_4_to_6(doc):
     r_c.font.name = 'Courier New'
     r_c.font.size = Pt(8.5)
 
-    doc.add_page_break()
-
     add_sec_heading(doc, "A.2 Cost-Sensitive Balanced Random Forest Training (train_model.py)")
     
     # Read actual train_model.py from workspace
@@ -436,8 +435,6 @@ def add_chapters_4_to_6(doc):
     r_c2 = p_code2.add_run(train_py_code)
     r_c2.font.name = 'Courier New'
     r_c2.font.size = Pt(8.5)
-
-    doc.add_page_break()
 
     add_chapter_title(doc, "Appendix B", "RESTful API Specifications & Data Payloads")
     add_p(doc, "The CardShield API adheres to RESTful architectural principles, accepting JSON-encoded payloads over HTTP POST and returning standard JSON status responses.")
@@ -482,8 +479,6 @@ def add_chapters_4_to_6(doc):
     r_rs = p_res.add_run(res_json)
     r_rs.font.name = 'Courier New'
     r_rs.font.size = Pt(9)
-
-    doc.add_page_break()
 
     add_sec_heading(doc, "B.2 System Health & Metrics Endpoint (/health)")
     add_p(doc, "• HTTP Method: GET\n• Resource URL: http://localhost:5000/health\n• Description: Returns microservice status, model memory state, and verified accuracy paradox metrics.")
