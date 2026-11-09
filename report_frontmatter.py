@@ -276,7 +276,7 @@ def add_frontmatter(doc):
         ("", "Preface", "vi"),
         ("", "List of Figures", "vii"),
         ("", "List of Tables", "viii"),
-        ("", "List of Abbreviations", "ix"),
+        ("", "List of Symbols, Abbreviations & Nomenclature", "ix"),
         ("1", "Introduction", "1"),
         ("  1.1", "Motivation & Historical Evolution of ATM Banking Fraud", "1"),
         ("  1.2", "ATM Architecture & Vulnerability Landscape", "2"),
@@ -579,13 +579,14 @@ def add_frontmatter(doc):
     doc.add_page_break()
 
     # =========================================================
-    # 9. LIST OF ABBREVIATIONS (Specimen Table Format)
+    # 9. LIST OF SYMBOLS, ABBREVIATIONS AND NOMENCLATURE
+    # (Compliant with Section 1.8 & 3.7 of NIMS Guidelines)
     # =========================================================
     p_loa_t = doc.add_paragraph()
     p_loa_t.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_loa_t.paragraph_format.space_before = Pt(8)
     p_loa_t.paragraph_format.space_after = Pt(14)
-    r_loat = p_loa_t.add_run("LIST OF ABBREVIATIONS")
+    r_loat = p_loa_t.add_run("LIST OF SYMBOLS, ABBREVIATIONS AND NOMENCLATURE")
     r_loat.bold = True
     r_loat.font.name = 'Times New Roman'
     r_loat.font.size = Pt(14)
@@ -604,40 +605,55 @@ def add_frontmatter(doc):
         set_cell_margins(c, top=120, bottom=120, left=100, right=100)
         p = c.paragraphs[0]
         p.alignment = WD_ALIGN_PARAGRAPH.LEFT
-        r = p.add_run(["Abbreviation", "Nomenclature / Description"][idx])
+        r = p.add_run(["Symbol / Abbreviation", "Nomenclature / Description / Definition"][idx])
         r.bold = True
         r.font.name = 'Times New Roman'
         r.font.size = Pt(11)
 
     abbreviations = [
+        # Mathematical Symbols & Nomenclature
+        ("R", "Composite Behavioral Risk Score (0 ≤ R ≤ 100)"),
+        ("w_i", "Relative Weight for Behavioral Risk Factor i (Σ w_i = 1.0)"),
+        ("S_i", "Normalized Heuristic Sub-score for Factor i (0 ≤ S_i ≤ 100)"),
+        ("ŷ", "Predicted Classification Outcome (0 = Legitimate, 1 = Fraud)"),
+        ("P(Fraud)", "Posterior Fraud Probability output by Random Forest Ensemble"),
+        ("α", "Threshold for Medium Risk / Step-up Authentication (α = 40)"),
+        ("β", "Threshold for High Risk / Immediate Card Block (β = 70)"),
+        ("TPR", "True Positive Rate / Sensitivity / Fraud Recall [TP / (TP + FN)]"),
+        ("FPR", "False Positive Rate / Fall-out [FP / (FP + TN)]"),
+        ("μ", "Baseline Mean Transaction Amount for Cardholder Account"),
+        ("σ", "Standard Deviation of Cardholder's Historical Transaction Values"),
+        ("Δt", "Temporal Velocity Delta between Successive Transactions"),
+        # Technical & Domain Abbreviations
         ("ATM", "Automated Teller Machine"),
         ("BCA", "Bachelor of Computer Applications"),
         ("PBL", "Problem Based Learning"),
         ("API", "Application Programming Interface"),
         ("ROC-AUC", "Receiver Operating Characteristic - Area Under Curve"),
         ("ML", "Machine Learning"),
-        ("RF", "Random Forest Classifier"),
+        ("RF", "Balanced Random Forest Classifier"),
         ("PIN", "Personal Identification Number"),
         ("CVV", "Card Verification Value"),
         ("OTP", "One-Time Password"),
+        ("MFA", "Multi-Factor Authentication"),
         ("JSON", "JavaScript Object Notation"),
         ("REST", "Representational State Transfer"),
         ("HTML", "HyperText Markup Language"),
         ("CSS", "Cascading Style Sheets"),
-        ("JS", "JavaScript"),
+        ("JS", "JavaScript (ECMAScript 6+)"),
         ("DFD", "Data Flow Diagram"),
         ("ERD", "Entity Relationship Diagram"),
         ("OS", "Operating System"),
         ("RAM", "Random Access Memory"),
-        ("SMOTE", "Synthetic Minority Over-sampling Technique"),
-        ("FPR", "False Positive Rate"),
-        ("TPR", "True Positive Rate (Recall)"),
-        ("UI", "User Interface"),
-        ("HTTP", "HyperText Transfer Protocol"),
-        ("CORS", "Cross-Origin Resource Sharing"),
         ("CPU", "Central Processing Unit"),
         ("CSV", "Comma-Separated Values"),
         ("SDK", "Software Development Kit"),
+        ("SMOTE", "Synthetic Minority Over-sampling Technique"),
+        ("UI", "User Interface"),
+        ("HTTP", "HyperText Transfer Protocol"),
+        ("CORS", "Cross-Origin Resource Sharing"),
+        ("PCI-DSS", "Payment Card Industry Data Security Standard"),
+        ("TLS", "Transport Layer Security (Version 1.3)"),
     ]
 
     for abbr, full_form in abbreviations:
