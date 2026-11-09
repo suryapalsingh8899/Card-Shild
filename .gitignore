@@ -1,0 +1,17 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+
+# Large Datasets (>100MB exceeds GitHub push limits)
+Bank Transaction dataset/
+cardshield/node_modules/
+cardshield/dist/
+
+# OS files
+.DS_Store
+Thumbs.db
+

@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CardShield – ATM Card Fraud Detection</title>
+  <meta name="description"
+    content="Real-time ATM card fraud detection powered by AI. Enter transaction details and get instant fraud risk scores with detailed analysis." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z" fill="#0e0e0e" stroke="#0e0e0e" />
+            <path d="M9 12l2 2 4-4" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <span class="logo-text">CARD<span class="logo-accent">SHIELD</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="#detector" class="nav-link">Detector</a>
+        <a href="#profiles" class="nav-link">Profiles</a>
+        <a href="#editorial" class="nav-link">Architecture</a>
+        <a href="#how-it-works" class="nav-link">Methodology</a>
+        <a href="#analytics" class="nav-link">Analytics</a>
+        <a href="#history" class="nav-link">Audit Log</a>
+      </div>
+      <div class="nav-actions">
+        <div class="nav-status">
+          <span class="status-dot"></span>
+          <span class="status-text">Engine Online</span>
+        </div>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-header">
+      <div class="nav-logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z" fill="#0e0e0e" stroke="#0e0e0e" />
+            <path d="M9 12l2 2 4-4" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <span class="logo-text">CARD<span class="logo-accent">SHIELD</span></span>
+      </div>
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close menu">&times;</button>
+    </div>
+    <div class="mobile-nav-links">
+      <a href="#detector" class="mobile-nav-link" onclick="closeMobileNav()"><span class="m-num">01</span> Detector</a>
+      <a href="#profiles" class="mobile-nav-link" onclick="closeMobileNav()"><span class="m-num">02</span> Profiles</a>
+      <a href="#editorial" class="mobile-nav-link" onclick="closeMobileNav()"><span class="m-num">03</span> Architecture</a>
+      <a href="#how-it-works" class="mobile-nav-link" onclick="closeMobileNav()"><span class="m-num">04</span> Methodology</a>
+      <a href="#analytics" class="mobile-nav-link" onclick="closeMobileNav()"><span class="m-num">05</span> Analytics</a>
+      <a href="#history" class="mobile-nav-link" onclick="closeMobileNav()"><span class="m-num">06</span> Audit Log</a>
+    </div>
+    <div class="mobile-nav-footer">
+      <a href="#detector" class="btn btn-black" style="width: 100%; text-align: center;" onclick="closeMobileNav()">LAUNCH DETECTOR</a>
+    </div>
+  </div>
+  <div class="mobile-backdrop" id="mobileBackdrop" onclick="closeMobileNav()"></div>
+
+  <!-- Hero Section – Clean Architectural Layout -->
+  <header class="hero" id="home">
+    <!-- Giant Display Title -->
+    <h1 class="hero-giant-title">CardShield</h1>
+
+    <!-- 3-Column Editorial Hero Grid -->
+    <div class="hero-editorial-grid">
+      <!-- Left Column: CTAs and Intro -->
+      <div class="hero-left-col">
+        <div class="hero-cta-group">
+          <a href="#detector" class="btn btn-black">START DETECTION</a>
+          <a href="#editorial" class="btn btn-underline">EXPLORE SYSTEM —</a>
+        </div>
+        <p class="hero-left-desc">
+          Continuous behavioral intelligence trained on 3M+ bank records. Sub-second machine learning risk scoring
+          designed to stop fraudulent transactions before settlement.
+        </p>
+      </div>
+
+      <!-- Center Column: 3D Obsidian Titanium Card -->
+      <div class="hero-center-col">
+        <div class="card-3d-wrapper">
+          <div class="card-3d">
+            <div class="card-3d-front">
+              <div class="card-network">SHIELD OBSIDIAN</div>
+              <div class="card-chip"></div>
+              <div class="card-number-display">4821 •••• •••• 9012</div>
+              <div class="card-bottom">
+                <div>
+                  <div class="card-holder">VERIFIED HOLDER</div>
+                  <div class="card-expiry">EXP 12/28</div>
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 0.72rem; color: rgba(255,255,255,0.4); letter-spacing: 0.1em;">
+                  TIER 01 / ELITE
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Floating Editorial Badges -->
+          <div class="floating-alerts">
+            <div class="float-alert alert-safe">
+              <span class="alert-icon">✓</span>
+              <span>Transaction Safe</span>
+            </div>
+            <div class="float-alert alert-warn">
+              <span class="alert-icon">⚠</span>
+              <span>Velocity Spike</span>
+            </div>
+            <div class="float-alert alert-danger">
+              <span class="alert-icon">✕</span>
+              <span>Fraud Flagged</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Editorial Specification Badge -->
+      <div class="hero-right-col">
+        <span class="hero-spec-tag">SYSTEM SPEC</span>
+        <span class="hero-spec-title">AI FRAUD DEFENSE<br>EDITION 2024 / 2025</span>
+        <div class="hero-spec-rule"></div>
+      </div>
+    </div>
+
+    <!-- Hero Stats Strip -->
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="stat-number" data-target="3000000">0</span>
+        <span class="stat-label">Transactions Analyzed</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-number" data-target="86.5">0</span>
+        <span class="stat-label">% ROC-AUC Benchmark</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-number" data-target="14954">0</span>
+        <span class="stat-label">Frauds Identified</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-number" data-target="65000">0</span>
+        <span class="stat-label">Cards Monitored</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- High-Contrast Black Band (Mirroring "MEN / WOMEN / KIDS" strip) -->
+  <section class="black-category-band" id="profiles">
+    <div class="band-container">
+      <!-- Profile 1: Debit -->
+      <div class="band-card">
+        <div class="band-img-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="2" y="5" width="20" height="14" rx="2" />
+            <line x1="2" y1="10" x2="22" y2="10" />
+          </svg>
+        </div>
+        <div class="band-info">
+          <div class="band-title">STANDARD DEBIT</div>
+          <p class="band-desc">Everyday domestic retail & ATM point-of-sale patterns.</p>
+          <button class="band-link" onclick="loadPreset('debit')">TEST DEBIT →</button>
+        </div>
+      </div>
+
+      <!-- Profile 2: Gold Credit -->
+      <div class="band-card">
+        <div class="band-img-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 6v12M8 10h8" />
+          </svg>
+        </div>
+        <div class="band-info">
+          <div class="band-title">GOLD CREDIT</div>
+          <p class="band-desc">Expanded ₹200K limit with dining and travel verification.</p>
+          <button class="band-link" onclick="loadPreset('gold')">TEST GOLD →</button>
+        </div>
+      </div>
+
+      <!-- Profile 3: Platinum High Risk -->
+      <div class="band-card">
+        <div class="band-img-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+            <path d="M2 17l10 5 10-5" />
+            <path d="M2 12l10 5 10-5" />
+          </svg>
+        </div>
+        <div class="band-info">
+          <div class="band-title">PLATINUM VIP</div>
+          <p class="band-desc">International midnight wire transfer & velocity spike check.</p>
+          <button class="band-link" onclick="loadPreset('highrisk')">TEST HIGH RISK →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Middle Editorial Split ("NEW SEASON / NEW VIBES" aesthetic) -->
+  <section class="editorial-split-section" id="editorial">
+    <div class="editorial-split-card">
+      <div class="editorial-split-left">
+        <span class="editorial-tag">NEW BENCHMARK</span>
+        <h2 class="editorial-headline">Zero Fraud.<br>Real-Time Defense.</h2>
+        <p class="editorial-body">
+          Our Random Forest behavioral engine models cross-dimensional transaction signals in real time. From card status and geo-location anomalies to velocity spikes, every parameter is evaluated in milliseconds.
+        </p>
+        <a href="#detector" class="btn btn-black" style="margin-top: 10px;">LAUNCH DETECTOR</a>
+      </div>
+      <div class="editorial-split-right">
+        <div class="spec-list">
+          <div class="spec-item">
+            <span class="spec-label">MODEL ARCHITECTURE</span>
+            <span class="spec-val">RANDOM FOREST (BALANCED)</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">HISTORICAL TRAINING SET</span>
+            <span class="spec-val">3,000,000 TRANSACTIONS</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">ACCURACY PARADOX</span>
+            <span class="spec-val">RESOLVED (COST-BALANCED)</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">ROC-AUC / FRAUD RECALL</span>
+            <span class="spec-val">86.5% / 78.4%</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">INFERENCE LATENCY</span>
+            <span class="spec-val">&lt; 18 MS (REAL-TIME)</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">DATA RETENTION</span>
+            <span class="spec-val">EPHEMERAL (ZERO PERSISTENCE)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Detector Section -->
+  <section class="detector-section" id="detector">
+    <div class="section-header">
+      <div class="section-badge">INTELLIGENCE SUITE</div>
+      <h2 class="section-title">Transaction Risk Analyzer</h2>
+      <p class="section-subtitle">Input card specifications and transaction parameters for instant probability scoring</p>
+    </div>
+
+    <div class="detector-layout">
+      <!-- Input Form -->
+      <div class="detector-form-panel">
+        <h3 class="panel-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <rect x="2" y="5" width="20" height="14" rx="2" />
+            <line x1="2" y1="10" x2="22" y2="10" />
+          </svg>
+          Card Details
+        </h3>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="card-type" class="form-label">Card Type</label>
+            <div class="select-wrapper">
+              <select id="card-type" class="form-select">
+                <option value="">Select card type</option>
+                <option value="debit">Debit Card</option>
+                <option value="credit-classic">Credit – Classic</option>
+                <option value="credit-gold">Credit – Gold</option>
+                <option value="credit-platinum">Credit – Platinum</option>
+              </select>
+              <svg class="select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="card-status" class="form-label">Card Status</label>
+            <div class="select-wrapper">
+              <select id="card-status" class="form-select">
+                <option value="">Select status</option>
+                <option value="active">Active</option>
+                <option value="expired">Expired</option>
+                <option value="blocked">Blocked</option>
+              </select>
+              <svg class="select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </div>
+          </div>
+
+          <div class="form-group full-span">
+            <label for="card-number" class="form-label">Card Number (Last 4 digits)</label>
+            <div class="input-wrapper">
+              <span class="input-prefix">•••• •••• ••••</span>
+              <input type="text" id="card-number" class="form-input" placeholder="1234" maxlength="4"
+                pattern="[0-9]{4}" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="expiry-date" class="form-label">Expiry Date</label>
+            <input type="month" id="expiry-date" class="form-input" />
+          </div>
+
+          <div class="form-group">
+            <label for="credit-limit" class="form-label">Credit Limit (₹)</label>
+            <div class="select-wrapper">
+              <select id="credit-limit" class="form-select">
+                <option value="0">No Limit (Debit)</option>
+                <option value="25000">₹25,000</option>
+                <option value="50000">₹50,000</option>
+                <option value="100000">₹1,00,000</option>
+                <option value="200000">₹2,00,000</option>
+                <option value="500000">₹5,00,000</option>
+              </select>
+              <svg class="select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3 class="panel-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+          </svg>
+          Transaction Details
+        </h3>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="txn-amount" class="form-label">Transaction Amount (₹)</label>
+            <input type="number" id="txn-amount" class="form-input" placeholder="e.g. 2500" min="1" />
+          </div>
+
+          <div class="form-group">
+            <label for="merchant-category" class="form-label">Merchant Category</label>
+            <div class="select-wrapper">
+              <select id="merchant-category" class="form-select">
+                <option value="">Select category</option>
+                <option value="ATM Withdrawal">ATM Withdrawal</option>
+                <option value="Dining">Dining</option>
+                <option value="Education">Education</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Fuel">Fuel</option>
+                <option value="Fund Transfer">Fund Transfer</option>
+                <option value="Groceries">Groceries</option>
+                <option value="Healthcare">Healthcare</option>
+                <option value="Insurance">Insurance</option>
+                <option value="Rent">Rent</option>
+                <option value="Salary Credit">Salary Credit</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Travel">Travel</option>
+                <option value="Utilities">Utilities</option>
+              </select>
+              <svg class="select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="txn-time" class="form-label">Transaction Time</label>
+            <input type="time" id="txn-time" class="form-input" />
+          </div>
+
+          <div class="form-group">
+            <label for="txn-location" class="form-label">Transaction Location</label>
+            <div class="select-wrapper">
+              <select id="txn-location" class="form-select">
+                <option value="domestic">Domestic</option>
+                <option value="international">International</option>
+              </select>
+              <svg class="select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </div>
+          </div>
+
+          <div class="form-group full-span">
+            <label for="txn-frequency" class="form-label">Transactions in Last 24h</label>
+            <div class="range-wrapper">
+              <input type="range" id="txn-frequency" class="form-range" min="1" max="20" value="3" />
+              <span class="range-value" id="txnFreqVal">3</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-analyze" id="analyzeBtn" onclick="analyzeTransaction()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.35-4.35" />
+          </svg>
+          <span>ANALYZE TRANSACTION</span>
+        </button>
+      </div>
+
+      <!-- Result Panel -->
+      <div class="result-panel">
+        <!-- Idle State -->
+        <div class="result-idle" id="resultIdle">
+          <div class="idle-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z" />
+              <path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <h3>System Idle</h3>
+          <p>Configure card and transaction parameters on the left or select a preset profile to run an instant risk assessment.</p>
+          <div class="idle-features">
+            <div class="idle-feat"><span>•</span> Sub-Second Risk Probability</div>
+            <div class="idle-feat"><span>•</span> 7-Factor Behavioral Breakdown</div>
+            <div class="idle-feat"><span>•</span> Automated Risk Verdict</div>
+          </div>
+        </div>
+
+        <!-- Loading State -->
+        <div class="result-loading" id="resultLoading" style="display:none;">
+          <div class="loading-ring">
+            <svg viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(14,14,14,0.1)" stroke-width="6" />
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#0e0e0e" stroke-width="6" stroke-dasharray="250"
+                stroke-dashoffset="180" stroke-linecap="round" />
+            </svg>
+          </div>
+          <div class="loading-steps" id="loadingSteps"></div>
+          <p class="loading-label" style="font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted);">
+            Evaluating Behavioral Risk Vectors...
+          </p>
+        </div>
+
+        <!-- Result State -->
+        <div class="result-output" id="resultOutput" style="display:none;">
+          <!-- Risk Score Card -->
+          <div class="risk-score-card" id="riskScoreCard">
+            <div class="risk-header">
+              <div>
+                <div class="risk-label">COMPOSITE FRAUD RISK SCORE</div>
+                <div class="risk-verdict" id="riskVerdict">—</div>
+              </div>
+              <div class="risk-badge-icon" id="riskIcon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z" />
+                  <path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+            </div>
+            <div class="risk-gauge">
+              <svg class="gauge-svg" viewBox="0 0 220 130">
+                <!-- Track -->
+                <path d="M20 110 A90 90 0 0 1 200 110" fill="none" stroke="rgba(14,14,14,0.08)" stroke-width="16"
+                  stroke-linecap="round" />
+                <!-- Fill -->
+                <path id="gaugeFill" d="M20 110 A90 90 0 0 1 200 110" fill="none" stroke="url(#gaugeGrad)"
+                  stroke-width="16" stroke-linecap="round" stroke-dasharray="283" stroke-dashoffset="283" />
+                <!-- Needle -->
+                <circle id="gaugeNeedle" cx="20" cy="110" r="8" fill="#0e0e0e" stroke="#ffffff" stroke-width="2" />
+                <text x="110" y="96" text-anchor="middle" class="gauge-number" id="gaugeNumber">0</text>
+                <text x="110" y="116" text-anchor="middle" class="gauge-sub">INDEX / 100</text>
+                <text x="22" y="126" text-anchor="middle" class="gauge-label-text">SAFE</text>
+                <text x="198" y="126" text-anchor="middle" class="gauge-label-text">CRITICAL</text>
+                <defs>
+                  <linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#15803d" />
+                    <stop offset="50%" stop-color="#b45309" />
+                    <stop offset="100%" stop-color="#b91c1c" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <div class="risk-probability" id="riskProbability">Fraud Probability: —</div>
+          </div>
+
+          <!-- Factor Breakdown -->
+          <div class="factors-card">
+            <h3 class="factor-title">Risk Factor Breakdown</h3>
+            <div class="factors-list" id="factorsList"></div>
+          </div>
+
+          <!-- Recommendations -->
+          <div class="recommendations-card">
+            <h3 class="factor-title">Prescribed Actions</h3>
+            <div class="recommendations-list" id="recommendationsList"></div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="result-actions">
+            <button class="btn btn-safe" id="markSafeBtn" onclick="markTransaction('safe')">
+              ✓ Mark Safe
+            </button>
+            <button class="btn btn-report" id="reportFraudBtn" onclick="markTransaction('fraud')">
+              ✕ Report Fraud
+            </button>
+            <button class="btn btn-ghost-sm" onclick="resetForm()">
+              New Check
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works (Methodology) -->
+  <section class="how-section" id="how-it-works">
+    <div class="section-header">
+      <div class="section-badge">METHODOLOGY</div>
+      <h2 class="section-title">Analysis Architecture</h2>
+      <p class="section-subtitle">Seven behavioral dimensions evaluated sequentially to produce a unified risk index</p>
+    </div>
+    <div class="how-grid">
+      <div class="how-card" data-step="1">
+        <div class="how-step">01 / VALIDATION</div>
+        <h3>Card Status</h3>
+        <p>Verification of card status, expiration dates, and account standing. Blocked credentials trigger instant critical alerts.</p>
+      </div>
+      <div class="how-card" data-step="2">
+        <div class="how-step">02 / MAGNITUDE</div>
+        <h3>Amount Variance</h3>
+        <p>Evaluates amount deviations against historical transaction means and cardholder credit utilization limits.</p>
+      </div>
+      <div class="how-card" data-step="3">
+        <div class="how-step">03 / TEMPORAL</div>
+        <h3>Chronological Pattern</h3>
+        <p>Flags non-standard hours, midnight ATM attempts, and off-schedule point-of-sale activities.</p>
+      </div>
+      <div class="how-card" data-step="4">
+        <div class="how-step">04 / GEOLOCATION</div>
+        <h3>Cross-Border Scrutiny</h3>
+        <p>Heightened behavioral analysis for international merchants, cross-border terminals, and foreign conversions.</p>
+      </div>
+      <div class="how-card" data-step="5">
+        <div class="how-step">05 / CATEGORY</div>
+        <h3>Merchant Profiling</h3>
+        <p>Cross-references transaction category with historical fraud density across 3M benchmark bank transactions.</p>
+      </div>
+      <div class="how-card" data-step="6">
+        <div class="how-step">06 / VELOCITY</div>
+        <h3>Frequency Spike</h3>
+        <p>Detects rapid repetitive transactions within 24 hours, characteristic of automated card-testing bots.</p>
+      </div>
+      <div class="how-card how-card-wide" data-step="7">
+        <div class="how-step">07 / SYNTHESIS</div>
+        <div>
+          <h3>Cost-Sensitive Ensemble AI (Accuracy Paradox Solved)</h3>
+          <p>Due to severe class imbalance (0.5% fraud base rate), a naive model yields a deceptive 99.5% accuracy while missing 100% of frauds. CardShield resolves the Accuracy Paradox using cost-sensitive class balancing and multi-dimensional behavioral heuristics to accurately isolate rare fraud vectors.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Analytics Section -->
+  <section class="analytics-section" id="analytics">
+    <div class="section-header">
+      <div class="section-badge">PORTFOLIO INTELLIGENCE</div>
+      <h2 class="section-title">Transaction Benchmark Data</h2>
+      <p class="section-subtitle">Metrics and patterns derived from 3M+ synthetic bank records</p>
+    </div>
+    <div class="analytics-grid">
+      <div class="metric-card">
+        <div class="metric-value counter" data-target="65000">0</div>
+        <div class="metric-label">Total Cards Monitored</div>
+        <div class="metric-trend">+12.4% this quarter</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value counter" data-target="14954">0</div>
+        <div class="metric-label">Fraudulent Transactions</div>
+        <div class="metric-trend">-3.2% vs baseline</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">86.5%</div>
+        <div class="metric-label">ROC-AUC Performance</div>
+        <div class="metric-trend">78.4% Recall &bull; Paradox Solved</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">₹1,833</div>
+        <div class="metric-label">Average Fraud Size</div>
+        <div class="metric-trend">vs ₹1,850 legitimate mean</div>
+      </div>
+
+      <!-- Fraud by Category Chart -->
+      <div class="chart-card chart-wide">
+        <h3 class="chart-title">Fraud Density by Merchant Category</h3>
+        <div class="chart-container" id="categoryChart"></div>
+      </div>
+
+      <!-- Card Type Chart -->
+      <div class="chart-card">
+        <h3 class="chart-title">Card Portfolio Distribution</h3>
+        <div class="donut-chart-container">
+          <svg class="donut-svg" viewBox="0 0 200 200" id="donutChart"></svg>
+          <div class="donut-legend" id="donutLegend"></div>
+        </div>
+      </div>
+
+      <!-- Risk Level by Amount -->
+      <div class="chart-card">
+        <h3 class="chart-title">Fraud Frequency by Amount Tier</h3>
+        <div class="bar-chart" id="amountChart"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- History Section -->
+  <section class="history-section" id="history">
+    <div class="section-header">
+      <div class="section-badge">AUDIT TRAIL</div>
+      <h2 class="section-title">Session Detection Log</h2>
+      <p class="section-subtitle">Real-time log of transactions evaluated during this active session</p>
+    </div>
+    <div class="history-container">
+      <div class="history-empty" id="historyEmpty">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="40" height="40">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+          <line x1="16" y1="13" x2="8" y2="13" />
+          <line x1="16" y1="17" x2="8" y2="17" />
+          <polyline points="10 9 9 9 8 9" />
+        </svg>
+        <p>No transactions analyzed yet. Run an analysis above to populate the audit log.</p>
+      </div>
+      <div class="history-table-wrapper" id="historyTable" style="display:none;">
+        <table class="history-table">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Card Type</th>
+              <th>Category</th>
+              <th>Amount</th>
+              <th>Risk Score</th>
+              <th>Verdict</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="historyBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom Trust / Feature Strip (Exact 4-Item Match from Reference Image) -->
+  <div class="bottom-trust-strip">
+    <div class="trust-container">
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="1" y="3" width="15" height="13" />
+            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
+            <circle cx="5.5" cy="18.5" r="2.5" />
+            <circle cx="18.5" cy="18.5" r="2.5" />
+          </svg>
+        </div>
+        <div class="trust-text">
+          <span class="trust-title">FAST INFERENCE</span>
+          <span class="trust-sub">&lt; 18ms real-time latency</span>
+        </div>
+      </div>
+
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <polyline points="21 8 21 21 3 21 3 8" />
+            <rect x="1" y="3" width="22" height="5" />
+            <line x1="10" y1="12" x2="14" y2="12" />
+          </svg>
+        </div>
+        <div class="trust-text">
+          <span class="trust-title">ZERO RETENTION</span>
+          <span class="trust-sub">In-memory ephemeral privacy</span>
+        </div>
+      </div>
+
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 6v6l4 2" />
+          </svg>
+        </div>
+        <div class="trust-text">
+          <span class="trust-title">BALANCED METRICS</span>
+          <span class="trust-sub">86.5% ROC-AUC &bull; 78% Recall</span>
+        </div>
+      </div>
+
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          </svg>
+        </div>
+        <div class="trust-text">
+          <span class="trust-title">SECURE SYSTEM</span>
+          <span class="trust-sub">Bank-grade simulation logic</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="nav-logo">
+          <div class="logo-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z" fill="#ffffff" stroke="#ffffff" />
+              <path d="M9 12l2 2 4-4" stroke="#0e0e0e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <span class="logo-text">CARD<span class="logo-accent">SHIELD</span></span>
+        </div>
+        <p>AI-Powered ATM & Credit Card Fraud Detection System. Built as a 5th-semester PBL academic prototype utilizing Random Forest machine learning models.</p>
+      </div>
+      <div class="footer-info">
+        <p class="footer-note">⚠ For educational and analytical purposes only.</p>
+        <p class="footer-note">Dataset: Bank Transaction Dataset (3M+ records)</p>
+        <p class="footer-note" style="margin-top: 6px; opacity: 0.5;">© 2024–2025 CardShield Project</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">
+    <span class="toast-icon" id="toastIcon"></span>
+    <span class="toast-msg" id="toastMsg"></span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
